@@ -5,19 +5,46 @@
 //  Created by Abdullah Alhaider on 17/05/2019.
 //  Copyright © 2019 DhawaAlkhreej. All rights reserved.
 //
-
 import UIKit
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        setupDependencies()
         return true
     }
+    
+    private func setupDependencies() {
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "تم"
+    }
 
+    func application(_ application: UIApplication,
+                     performActionFor shortcutItem: UIApplicationShortcutItem,
+                     completionHandler: @escaping (Bool) -> Void) {
+        
+        guard let tabBar = UIApplication.topViewController() else { return }
+        
+        switch shortcutItem.type {
+        case "net.alhaider.search":
+            tabBar.tabBarController?.selectedIndex = 0
+        case "net.alhaider.calculate":
+            tabBar.tabBarController?.selectedIndex = 1
+        case "net.alhaider.viewMajors":
+            tabBar.tabBarController?.selectedIndex = 2
+        case "net.alhaider.showFavorite":
+            tabBar.tabBarController?.selectedIndex = 3
+        default:
+            break
+        }
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur
         // for certain types of temporary interruptions (such as an incoming phone call or SMS message) or

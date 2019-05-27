@@ -17,6 +17,8 @@ class TabBarVC: UITabBarController {
         setupUI()
         // Adding the root view controllers
         rootViewControllers()
+        // Adding padding
+        fixImageInsets()
     }
     
     /// Setting up the UI
@@ -31,33 +33,35 @@ class TabBarVC: UITabBarController {
     
     func rootViewControllers() {
         
-        // Left VC
         let tabVC1 = createViewController(nv: UINavigationController(),
                                           vc: UIViewController(),
                                           selectedImage: #imageLiteral(resourceName: "tabBar1"),
                                           unselectedImage: #imageLiteral(resourceName: "tabBar1"),
-                                          title: "tabVC1")
+                                          title: "")
         
-        // Middle VC
         let tabVC2 = createViewController(nv: UINavigationController(),
-                                          vc: UIViewController(),
+                                          vc: UIStoryboard.calculator.instantiateViewController(withClass: CalculatorVC.self),
                                           selectedImage: #imageLiteral(resourceName: "tabBar2"),
                                           unselectedImage: #imageLiteral(resourceName: "tabBar2"),
-                                          title: "tabVC2")
+                                          title: "")
         
-        // Right VC
         let tabVC3 = createViewController(nv: UINavigationController(),
-                                          vc: UIViewController(),
+                                          vc: UIStoryboard.majors.instantiateViewController(withClass: SectionsVC.self),
                                           selectedImage: #imageLiteral(resourceName: "tabBar3"),
                                           unselectedImage: #imageLiteral(resourceName: "tabBar3"),
-                                          title: "tabVC3")
+                                          title: "")
         
         let tabVC4 = createViewController(nv: UINavigationController(),
-                                          vc: UIViewController(),
+                                          vc: UIStoryboard.majors.instantiateViewController(withClass: SavedMajorsVC.self),
                                           selectedImage: #imageLiteral(resourceName: "tabBar4"),
                                           unselectedImage: #imageLiteral(resourceName: "tabBar4"),
-                                          title: "tabVC4")
+                                          title: "")
         
         viewControllers = [tabVC1, tabVC2, tabVC3, tabVC4]
+    }
+    
+    func fixImageInsets() {
+        guard let item = tabBar.items else { return }
+        item.forEach({ $0.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0) })
     }
 }

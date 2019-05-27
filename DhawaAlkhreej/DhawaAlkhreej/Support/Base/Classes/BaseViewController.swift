@@ -6,13 +6,15 @@
 //  Copyright © 2019 DhawaAlkhreej. All rights reserved.
 //
 
-import UIKit
+import Helper4Swift
 
 class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupUI()
+        setupTableView()
+        addKeyboardHidingGesture()
     }
     
     func setupUI() {}

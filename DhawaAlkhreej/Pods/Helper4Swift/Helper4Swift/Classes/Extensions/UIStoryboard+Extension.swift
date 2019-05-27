@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIStoryboard {
+public extension UIStoryboard {
     
     /// Instantiate a UIViewController using its class name
     ///
@@ -15,7 +15,7 @@ extension UIStoryboard {
     /// - Returns: The view controller corresponding to specified class name
     ///
     /// - Author: Abdullah Alhaider.
-    func instantiateViewController<T: UIViewController>(withClass name: T.Type) -> T? {
-        return instantiateViewController(withIdentifier: String(describing: name)) as? T
+    func instantiateViewController<T: UIViewController>(withClass name: T.Type) -> T {
+        return instantiateViewController(withIdentifier: String(describing: name)) as? T ?? T()
     }
 }
